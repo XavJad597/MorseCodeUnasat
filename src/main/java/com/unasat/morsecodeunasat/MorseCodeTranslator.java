@@ -2,10 +2,14 @@ package com.unasat.morsecodeunasat;
 
 import java.util.HashMap;
 
+// Class responsible for translating between English text and Morse code.
 public class MorseCodeTranslator {
+// A static HashMap to hold the mapping between English characters (including numbers and some punctuation) and Morse code.
     private static final HashMap<String, String> englishToMorseLib = new HashMap<>();
 
     static {
+        // Static initializer block to populate the englishToMorseLib map with English to Morse code mappings.
+        // Each letter, number, and supported punctuation mark is mapped to its corresponding Morse code representation.
         // Initialize mapping between English characters and Morse code
         englishToMorseLib.put("A", ".-");
         englishToMorseLib.put("B", "-...");
@@ -55,42 +59,29 @@ public class MorseCodeTranslator {
 
         // Other mappings...
     }
-
-    public static String englishToMorse(String englishText) {
-        StringBuilder morseCode = new StringBuilder();
-        for (char c : englishText.toUpperCase().toCharArray()) {
-            if (englishToMorseLib.containsKey(String.valueOf(c))) {
-                morseCode.append(englishToMorseLib.get(String.valueOf(c))).append(" ");
-            } else if (c == ' ') {
-                // Handle spaces by adding a slash to separate words in Morse code
-                morseCode.append("/ ");
-            } else {
-                // Handle unknown characters or symbols
-                morseCode.append("? ");
-            }
-        }
-        return morseCode.toString().trim();
-    }
-
+    
+    // Translates English text to Morse code.
+    // Iterates through each character of the input text, converting it to uppercase to match the map keys,
+    // and appends the corresponding Morse code to the output string.
     public static String morseToEnglish(String morseText) {
         StringBuilder englishText = new StringBuilder();
-        String[] morseWords = morseText.split(" / ");
+        String[] morseWords = morseText.split(" / "); // Split the input text into words based on " / " as the word separator
         for (String morseWord : morseWords) {
-            String[] morseChars = morseWord.split(" ");
+            String[] morseChars = morseWord.split(" "); // Split each word into individual Morse code sequences
             for (String morseChar : morseChars) {
-                if (englishToMorseLib.containsKey(morseChar)) {
-                    englishText.append(englishToMorseLib.get(morseChar));
-                } else if (morseChar.equals("/")) {
-                    // Handle word separator
-                    englishText.append(" ");
+                if (englishToMorseLib.containsValue(morseChar)) {
+                    // Find the key (English character) for the given Morse code value and append it to the output string
+                    englishText.append(englishToMorseLib.entrySet().stream()
+                            .filter(entry -> morseChar.equals(entry.getValue()))
+                            .map(entry -> entry.getKey())
+                            .findFirst().orElse("?"));
                 } else {
-                    // Handle unknown Morse code sequences
+                    // Handle unknown Morse code sequences with a question mark
                     englishText.append("?");
                 }
             }
-            englishText.append(" "); // Add space between words
+            englishText.append(" "); // Add a space to separate words
         }
-        return englishText.toString().trim();
-        // Implement Morse to English translation
+        return englishText.toString().trim(); // Return the translated English text, trimming trailing spaces
     }
 }

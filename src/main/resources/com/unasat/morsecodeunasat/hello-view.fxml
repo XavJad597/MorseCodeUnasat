@@ -4,12 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="317.0" prefWidth="446.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unasat.morsecodeunasat.HelloController">
+<VBox alignment="CENTER" prefHeight="403.0" prefWidth="504.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unasat.morsecodeunasat.HelloController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
+   <TextArea fx:id="englishTextArea"   prefHeight="66.0" prefWidth="469.0" />
+   <TextArea fx:id="morseTextArea"  prefHeight="66.0" prefWidth="464.0" />
 
     <Label fx:id="welcomeText" />
     <Button onAction="#onHelloButtonClick" text="Hello!" />
-   <Button mnemonicParsing="false" text="Button" />
 </VBox>

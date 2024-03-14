@@ -1,9 +1,14 @@
 package com.unasat.morsecodeunasat;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MorseCodeTranslator {
     private static final HashMap<String, String> englishToMorseLib = new HashMap<>();
+    private static final Logger logger = Logger.getLogger(MorseCodeTranslator.class.getName());
+
 
     static {
         // Initialize mapping between English characters and Morse code
@@ -72,25 +77,62 @@ public class MorseCodeTranslator {
         return morseCode.toString().trim();
     }
 
-    public static String morseToEnglish(String morseText) {
-        StringBuilder englishText = new StringBuilder();
+//    public static String morseToEnglish(String morseText) {
+//        StringBuilder englishText = new StringBuilder();
+//        String[] morseWords = morseText.split(" / ");
+//        for (String morseWord : morseWords) {
+//            String[] morseChars = morseWord.split(" ");
+//            for (String morseChar : morseChars) {
+//                if (englishToMorseLib.containsKey(morseChar)) {
+//                    englishText.append(englishToMorseLib.get(morseChar));
+//                } else if (morseChar.equals("/ ")) {
+//                    // Handle word separator
+//                    englishText.append("");
+//                } else {
+//                    // Handle unknown Morse code sequences
+//                    englishText.append("? ");
+//                }
+//            }
+//            englishText.append(" "); // Add space between words
+//        }
+//        return englishText.toString().trim();
+//        // Implement Morse to English translation
+public static String morseToEnglish(String morseText) {
+    StringBuilder englishText = new StringBuilder();
+
+    try {
+        // Process Morse code using existing logic
         String[] morseWords = morseText.split(" / ");
         for (String morseWord : morseWords) {
-            String[] morseChars = morseWord.split(" ");
+            String[] morseChars = morseWord.split("\\s+"); // Split by any whitespace
             for (String morseChar : morseChars) {
-                if (englishToMorseLib.containsKey(morseChar)) {
-                    englishText.append(englishToMorseLib.get(morseChar));
+                if (englishToMorseLib.containsValue(morseChar)) {
+                    for (Map.Entry<String, String> entry : englishToMorseLib.entrySet()) {
+                        if (entry.getValue().equals(morseChar)) {
+                            englishText.append(entry.getKey());
+                            break; // Once found, break the loop
+                        }
+                    }
                 } else if (morseChar.equals("/")) {
-                    // Handle word separator
-                    englishText.append(" ");
+                    englishText.append(" "); // Handle word separator
                 } else {
-                    // Handle unknown Morse code sequences
-                    englishText.append("?");
+                    logger.log(Level.WARNING, "Unknown Morse code sequence: " + morseChar);
+                    englishText.append("? "); // Handle unknown Morse code sequences
                 }
             }
             englishText.append(" "); // Add space between words
         }
-        return englishText.toString().trim();
-        // Implement Morse to English translation
+    } catch (NullPointerException e) {
+        logger.log(Level.SEVERE, "Null Morse code input provided.", e);
+        return "Error: Invalid Morse code input.";
+    } catch (IllegalArgumentException e) {
+        logger.log(Level.SEVERE, "Invalid Morse code format. Check separators and characters.", e);
+        return "Error: Invalid Morse code input.";
     }
+
+    return englishText.toString().trim();
 }
+
+}
+
+

@@ -17,7 +17,7 @@ public class HelloController {
     @FXML
     private MorseCodeTranslator translator = new MorseCodeTranslator();
     @FXML
-    protected void onHelloButtonClick() {
+    protected void onTranslateToMorseClick() {
         String englishText = englishTextArea.getText();
 
         // Call the English to Morse function from the Translator class
@@ -25,5 +25,16 @@ public class HelloController {
 
         // Set the Morse text to the TextArea for Morse output
         morseTextArea.setText(morseText);
+    }
+
+    @FXML
+    protected void onTranslateToEnglishClick() {
+        String morseText = morseTextArea.getText();
+
+        // Call the English to Morse function from the Translator class
+        String englishText = translator.morseToEnglish(morseText);
+
+        // Set the Morse text to the TextArea for Morse output
+        englishTextArea.setText(englishText);
     }
 }

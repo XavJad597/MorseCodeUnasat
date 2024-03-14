@@ -8,7 +8,8 @@ module com.unasat.morsecodeunasat {
         requires org.kordamp.ikonli.javafx;
         requires org.kordamp.bootstrapfx.core;
         requires eu.hansolo.tilesfx;
+    requires java.logging;
 
-        opens com.unasat.morsecodeunasat to javafx.fxml;
+    opens com.unasat.morsecodeunasat to javafx.fxml;
         exports com.unasat.morsecodeunasat;
         }

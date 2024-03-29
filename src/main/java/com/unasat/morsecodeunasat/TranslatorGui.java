@@ -17,34 +17,9 @@ public class TranslatorGui extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Show introduction before starting the main application
-        //showIntroduction(primaryStage);
         Introduction introduction = new Introduction();
+        introduction.setContinueAction(() -> startTranslatorGui(primaryStage));
         introduction.showIntroduction(primaryStage);
-
-
-    }
-
-    private void showIntroduction(Stage primaryStage) {
-        VBox root = new VBox(10);
-        root.setAlignment(Pos.CENTER);
-        Introduction introduction = new Introduction();
-        introduction.showIntroduction(primaryStage);
-
-        Text introText = new Text("Welcome to the Morse Translator Application!");
-        Button continueButton = new Button("Continue");
-
-        continueButton.setOnAction(e -> {
-            primaryStage.close();
-            // After closing the introduction, start the main application
-            startTranslatorGui(primaryStage);
-        });
-
-        root.getChildren().addAll(introText, continueButton);
-
-        Scene scene = new Scene(root, 400, 200);
-        primaryStage.setTitle("Introduction");
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
     private void startTranslatorGui(Stage primaryStage) {
@@ -77,7 +52,7 @@ public class TranslatorGui extends Application {
         morseTextArea.setText(morseText);
     }
 
-    private void translateToEnglish(){
+    private void translateToEnglish() {
         String morseText = morseTextArea.getText();
         String englishText = MorseCodeTranslator.morseToEnglish(morseText);
         englishTextArea.setText(englishText);

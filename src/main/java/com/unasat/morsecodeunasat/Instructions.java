@@ -27,12 +27,10 @@ public class Instructions {
         Text instructionsText = createText("How to use the translator:", 24);
 
         Text[] instruct = {
-                createText("1. Type your text in the upper Textfield", 14),
-                createText("2. press on the 'Translate' button", 14),
-                createText("Change from English-to-Morse to Morse-to-English", 20),
-                createText("Press on the Switch button to change to Morse-to-English",14),
-                createText("Deleting the text", 20),
-                createText("Press Delete to remove the text.", 14)
+                createText("1. Type your english text in the left textfield or type your morsecode in the right text field", 14),
+                createText("2. press the 'english to morse button' to translate to morsecode, or press the 'morse to english' button to translate to english ", 14),
+                createText("Clearing the text", 18),
+                createText("Press the 'Clear Text' button to clear the text.", 14)
         };
 
         VBox vbox = new VBox(20);

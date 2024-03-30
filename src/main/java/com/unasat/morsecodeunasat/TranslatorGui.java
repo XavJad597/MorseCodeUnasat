@@ -35,10 +35,16 @@ public class TranslatorGui extends Application {
         Button translateToEnglishButton = new Button("Translate to English");
         translateToEnglishButton.setOnAction(e -> translateToEnglish());
 
+        // Adding a clear button
+        Button clearButton = new Button("Clear Text");
+        clearButton.setOnAction(e -> clearTextAreas());
+
+        VBox buttonBox = new VBox(translateToEnglishButton, translateToMorseButton, clearButton);
+        buttonBox.setAlignment(Pos.CENTER); // Align buttons in the center of VBox
+
         root.setLeft(englishTextArea);
         root.setRight(morseTextArea);
-        root.setTop(translateToEnglishButton);
-        root.setBottom(translateToMorseButton);
+        root.setBottom(buttonBox); // Use VBox for the buttons
 
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setTitle("Morse Translator");
@@ -56,6 +62,12 @@ public class TranslatorGui extends Application {
         String morseText = morseTextArea.getText();
         String englishText = MorseCodeTranslator.morseToEnglish(morseText);
         englishTextArea.setText(englishText);
+    }
+
+    // Method to clear both text areas
+    private void clearTextAreas() {
+        englishTextArea.clear();
+        morseTextArea.clear();
     }
 
     public static void main(String[] args) {

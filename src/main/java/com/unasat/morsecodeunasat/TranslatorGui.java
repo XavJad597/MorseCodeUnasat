@@ -18,13 +18,35 @@ public class TranslatorGui extends Application {
     public void start(Stage primaryStage) {
         // Show introduction before starting the main application
         //showIntroduction(primaryStage);
+      /*  Introduction introduction = new Introduction();
+        introduction.showIntroduction(primaryStage);*/
+
+        VBox root = new VBox(10);
+        root.setAlignment(Pos.CENTER);
         Introduction introduction = new Introduction();
         introduction.showIntroduction(primaryStage);
+
+        Text introText = new Text("welcome");
+        Button continueButton = new Button("Continue");
+
+        continueButton.setOnAction(e -> {
+            primaryStage.close();
+            // After closing the introduction, start the main application
+            startTranslatorGui(primaryStage);
+        });
+
+        root.getChildren().addAll(introText, continueButton);
+
+        Scene scene = new Scene(root, 400, 200);
+        primaryStage.setTitle("Introduction");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
 
 
     }
 
-    private void showIntroduction(Stage primaryStage) {
+   /* private void showIntroduction(Stage primaryStage) {
         VBox root = new VBox(10);
         root.setAlignment(Pos.CENTER);
         Introduction introduction = new Introduction();
@@ -45,7 +67,7 @@ public class TranslatorGui extends Application {
         primaryStage.setTitle("Introduction");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
+    }*/
 
     private void startTranslatorGui(Stage primaryStage) {
         // Proceed to the main application

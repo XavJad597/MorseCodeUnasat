@@ -18,8 +18,14 @@ public class TranslatorGui extends Application {
     public void start(Stage primaryStage) {
         // Show introduction before starting the main application
         Introduction introduction = new Introduction();
-        introduction.setContinueAction(() -> startTranslatorGui(primaryStage));
+        introduction.setContinueAction(() -> instructions(primaryStage));
         introduction.showIntroduction(primaryStage);
+    }
+
+    public void instructions(Stage primaryStage){
+        Instructions instructions = new Instructions();
+        instructions.setContinueAction(() -> startTranslatorGui(primaryStage));
+        instructions.showInstructions(primaryStage);
     }
 
     private void startTranslatorGui(Stage primaryStage) {

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MorseCodeTranslatorTest {
+class MorseCodeTest {
 
     @Test
     void englishToMorse() {  // Test input and expected output

@@ -1,17 +1,18 @@
 package com.unasat.morsecodeunasat;
 
-import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class Introduction {
+
+    private Runnable continueAction;
 
     public void showIntroduction(Stage primaryStage) {
         primaryStage.setTitle("Morse Translator");
@@ -65,9 +66,22 @@ public class Introduction {
 
         root.getChildren().addAll(title, createdBy, hbox);
 
+        Button continueButton = new Button("Continue");
+        continueButton.setOnAction(e -> {
+            primaryStage.close();
+            if (continueAction != null) {
+                continueAction.run();
+            }
+        });
+        root.getChildren().add(continueButton);
+
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public void setContinueAction(Runnable continueAction) {
+        this.continueAction = continueAction;
     }
 
     private Text createText(String text, double size) {
@@ -75,20 +89,4 @@ public class Introduction {
         newText.setFont(Font.font(size));
         return newText;
     }
-//    private void setFadeTransition(Text text, int startSeconds, int endSeconds) {
-//        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(5), text);
-//        fadeTransition.setFromValue(0.0);
-//        fadeTransition.setToValue(1.0);
-//        fadeTransition.setDelay(Duration.seconds(startSeconds));
-//        fadeTransition.setOnFinished(event -> {
-//            try {
-//                Thread.sleep((endSeconds - startSeconds) * 1400);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            fadeTransition.setRate(-1);
-//            fadeTransition.play();
-//        });
-//        fadeTransition.play();
-//    }
 }

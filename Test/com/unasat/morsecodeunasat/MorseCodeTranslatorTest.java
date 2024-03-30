@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MorseCodeTranslatorTest {
 
     @Test
-    void englishToMorse() {
+    void englishToMorseTest() {
         String morseResult = MorseCodeTranslator.englishToMorse("HELLO");
         assertEquals(".... . .-.. .-.. ---", morseResult);
 
@@ -34,7 +34,7 @@ class MorseCodeTranslatorTest {
     }
 
     @Test
-    void morseToEnglish() {
+    void morseToEnglishTest() {
         String englishResult = MorseCodeTranslator.morseToEnglish(".... . .-.. .-.. ---");
         assertEquals("HELLO", englishResult);
 

@@ -17,10 +17,15 @@ public class TranslatorGui extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Show introduction before starting the main application
-        Introduction introduction = new Introduction();
-        introduction.setContinueAction(() -> startTranslatorGui(primaryStage));
-        introduction.showIntroduction(primaryStage);
+        try {
+            // Show introduction before starting the main application
+            Introduction introduction = new Introduction();
+            introduction.setContinueAction(() -> startTranslatorGui(primaryStage));
+            introduction.showIntroduction(primaryStage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle exceptions appropriately
+        }
     }
 
     private void startTranslatorGui(Stage primaryStage) {

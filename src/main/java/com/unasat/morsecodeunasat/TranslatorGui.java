@@ -6,75 +6,76 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class TranslatorGui extends Application {
-    private TextArea englishTextArea;
-    private TextArea morseTextArea;
+    private TextArea leftTextArea;
+    private TextArea rightTextArea;
+    private Button switchButton;
 
     @Override
     public void start(Stage primaryStage) {
-        // Show introduction before starting the main application
-        Introduction introduction = new Introduction();
-        introduction.setContinueAction(() -> startTranslatorGui(primaryStage));
-        introduction.showIntroduction(primaryStage);
-    }
+        // Initialize text areas
+        leftTextArea = new TextArea();
+        leftTextArea.setPromptText("Enter text to translate");
+        leftTextArea.setWrapText(true);
 
-    private void startTranslatorGui(Stage primaryStage) {
-        // Proceed to the main application
-        BorderPane root = new BorderPane();
+        rightTextArea = new TextArea();
+        rightTextArea.setPromptText("Translation appears here");
+        rightTextArea.setWrapText(true);
 
-        englishTextArea = new TextArea();
-        englishTextArea.setPrefWidth(280); // Set preferred width
-        englishTextArea.setPrefHeight(350); // Set preferred height
+        // Initialize switch button
+        switchButton = new Button("Switch");
+        switchButton.setOnAction(e -> switchText());
 
-        morseTextArea = new TextArea();
-        morseTextArea.setPrefWidth(280); // Set preferred width
-        morseTextArea.setPrefHeight(350); // Set preferred height
+        // Initialize translate button
+        Button translateButton = new Button("Translate");
+        translateButton.setOnAction(e -> translate());
 
-        Button translateToMorseButton = new Button("Translate to Morse");
-        translateToMorseButton.setOnAction(e -> translateToMorse());
+        // Initialize clear button
+        Button clearButton = new Button("Clear");
+        clearButton.setOnAction(e -> clearText());
 
-        Button translateToEnglishButton = new Button("Translate to English");
-        translateToEnglishButton.setOnAction(e -> translateToEnglish());
+        // Arrange components in VBox
+        VBox vBox = new VBox(10);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().addAll(leftTextArea, rightTextArea, switchButton, translateButton, clearButton);
 
-        // Adding a clear button
-        Button clearButton = new Button("Clear Text");
-        clearButton.setOnAction(e -> clearTextAreas());
-
-        VBox buttonBox = new VBox(10);
-        buttonBox.setAlignment(Pos.CENTER);
-        buttonBox.getChildren().addAll(translateToEnglishButton, translateToMorseButton,clearButton);// Align buttons in the center of VBox
-
-        root.setLeft(englishTextArea);
-        root.setRight(morseTextArea);
-        root.setBottom(buttonBox); // Use VBox for the buttons
-
-        Scene scene = new Scene(root, 600, 400);
-        primaryStage.setTitle("Morse Translator");
+        // Set up scene
+        Scene scene = new Scene(vBox, 400, 300);
+        primaryStage.setTitle("Translator");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private void translateToMorse() {
-        String englishText = englishTextArea.getText();
-        String morseText = MorseCodeTranslator.englishToMorse(englishText);
-        morseTextArea.setText(morseText);
+    private void switchText() {
+        String temp = leftTextArea.getText();
+        leftTextArea.setText(rightTextArea.getText());
+        rightTextArea.setText(temp);
     }
 
-    private void translateToEnglish() {
-        String morseText = morseTextArea.getText();
-        String englishText = MorseCodeTranslator.morseToEnglish(morseText);
-        englishTextArea.setText(englishText);
+    private void translate() {
+        String input = leftTextArea.getText().trim();
+        String translation = "";
+
+        // Check if input is Morse code or English
+        if (isMorse(input)) {
+            translation = MorseCodeTranslator.morseToEnglish(input);
+        } else {
+            translation = MorseCodeTranslator.englishToMorse(input);
+        }
+
+        rightTextArea.setText(translation);
     }
 
-    // Method to clear both text areas
-    private void clearTextAreas() {
-        englishTextArea.clear();
-        morseTextArea.clear();
+    private boolean isMorse(String text) {
+        return text.matches("[\\-\\.\\s/]+");
+    }
+
+    private void clearText() {
+        leftTextArea.clear();
+        rightTextArea.clear();
     }
 
     public static void main(String[] args) {

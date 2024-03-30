@@ -16,25 +16,42 @@ public class HelloController {
 
     @FXML
     private MorseCodeTranslator translator = new MorseCodeTranslator();
+
     @FXML
     protected void onTranslateToMorseClick() {
-        String englishText = englishTextArea.getText();
+        try {
+            String englishText = englishTextArea.getText();
 
-        // Call the English to Morse function from the Translator class
-        String morseText = translator.englishToMorse(englishText);
+            // Call the English to Morse function from the Translator class
+            String morseText = translator.englishToMorse(englishText);
 
-        // Set the Morse text to the TextArea for Morse output
-        morseTextArea.setText(morseText);
+            // Set the Morse text to the TextArea for Morse output
+            morseTextArea.setText(morseText);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            // Handle NullPointerException appropriately
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle other exceptions appropriately
+        }
     }
 
     @FXML
     protected void onTranslateToEnglishClick() {
-        String morseText = morseTextArea.getText();
+        try {
+            String morseText = morseTextArea.getText();
 
-        // Call the English to Morse function from the Translator class
-        String englishText = translator.morseToEnglish(morseText);
+            // Call the Morse to English function from the Translator class
+            String englishText = translator.morseToEnglish(morseText);
 
-        // Set the Morse text to the TextArea for Morse output
-        englishTextArea.setText(englishText);
+            // Set the English text to the TextArea for English output
+            englishTextArea.setText(englishText);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            // Handle NullPointerException appropriately
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle other exceptions appropriately
+        }
     }
 }

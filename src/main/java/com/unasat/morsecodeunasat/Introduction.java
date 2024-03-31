@@ -42,7 +42,7 @@ public class Introduction {
 
         Text[] studentNumbers = {
                 createText("SE/1122/046", 14),
-                createText("SE/1122/149", 14),
+                createText("SE/1122/109", 14),
                 createText("SE/1122/111", 14),
                 createText("SE/1121/034", 14),
                 createText("SE/1122/032", 14)

@@ -63,7 +63,7 @@ public class TranslatorGui extends Application {
         vBox.getChildren().addAll(leftTextArea, rightTextArea, switchButton, translateButton, clearButton);
 
       
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(vBox, 400, 300);
         primaryStage.setTitle("Translator");
         primaryStage.setScene(scene);
         primaryStage.show();

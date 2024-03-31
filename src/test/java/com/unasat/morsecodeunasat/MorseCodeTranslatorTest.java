@@ -8,6 +8,7 @@ class MorseCodeTranslatorTest {
 
     @Test
     void englishToMorseTest() {
+        //The test cases compare the expected value with the actual results
         String morseResult = MorseCodeTranslator.englishToMorse("HELLO");
         assertEquals(".... . .-.. .-.. ---", morseResult);
 

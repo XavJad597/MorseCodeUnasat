@@ -75,7 +75,7 @@ public class Introduction {
         });
         root.getChildren().add(continueButton);
 
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 700, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

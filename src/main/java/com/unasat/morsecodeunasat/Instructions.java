@@ -27,9 +27,9 @@ public class Instructions {
         Text instructionsText = createText("How to use the translator:", 24);
 
         Text[] instruct = {
-                createText("1. Type your english text in the left textfield or type your morsecode in the right text field", 14),
-                createText("2. press the 'english to morse button' to translate to morsecode, or press the 'morse to english' button to translate to english ", 14),
-                createText("Clearing the text", 18),
+                createText("1. Type your english text/MorseCode in the upper field", 14),
+                createText("2.press the translate button to translate the English text/MorseCode",14),
+                createText("3 Press the switch button to switch english text or morse code with eachother",14),
                 createText("Press the 'Clear Text' button to clear the text.", 14)
         };
 
@@ -52,7 +52,7 @@ public class Instructions {
         });
         root.getChildren().add(continueButton);
 
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 700, 700);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

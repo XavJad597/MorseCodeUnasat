@@ -16,6 +16,7 @@ public class HelloController {
 
     @FXML
     private MorseCodeTranslator translator = new MorseCodeTranslator();
+
     @FXML
     protected void onTranslateToMorseClick() {
         try {
@@ -53,3 +54,4 @@ public class HelloController {
             // Handle other exceptions appropriately
         }
     }
+}

@@ -1,77 +1,104 @@
 package com.unasat.morsecodeunasat;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 // Main class for the GUI of the Morse Code Translator application.
 // Extends Application to use JavaFX for building the user interface.
 public class TranslatorGui extends Application {
-    // Text areas for input and output: one for English text and one for Morse code.
-    private TextArea englishTextArea;
-    private TextArea morseTextArea;
+
+    private TextArea leftTextArea;
+    private TextArea rightTextArea;
+    private Button switchButton;
 
     @Override
-    // The start method is the entry point for JavaFX applications.
     public void start(Stage primaryStage) {
-        // BorderPane is used as the root layout for this application. It allows placing components in the top, bottom, left, right, and center.
+        // Show introduction before starting the main application
+        Introduction introduction = new Introduction();
+        introduction.setContinueAction(() -> instruction(primaryStage));
+        introduction.showIntroduction(primaryStage);
+    }
+
+    public void instruction(Stage primaryStage){
+        Instructions instructions = new Instructions();
+        instructions.setContinueAction(() -> startTranslatorGui(primaryStage));
+        instructions.showInstructions(primaryStage);
+    }
+
+    private void startTranslatorGui(Stage primaryStage) {
+        // Proceed to the main application
         BorderPane root = new BorderPane();
+        // Initialize text areas
+        leftTextArea = new TextArea();
+        leftTextArea.setPromptText("Enter text to translate");
+        leftTextArea.setWrapText(true);
 
-        // Initialize text areas for English and Morse code input/output.
-        englishTextArea = new TextArea();
-        morseTextArea = new TextArea();
+        rightTextArea = new TextArea();
+        rightTextArea.setPromptText("Translation appears here");
+        rightTextArea.setWrapText(true);
 
-        // Button to trigger translation from English to Morse code.
-        Button translateToMorseButton = new Button("Translate to Morse");
-        // Set the action to be performed when the button is clicked.
-        translateToMorseButton.setOnAction(e -> translateToMorse());
+        // Initialize switch button
+        switchButton = new Button("Switch");
+        switchButton.setOnAction(e -> switchText());
 
-        // Button to trigger translation from Morse code to English.
-        Button translateToEnglishButton = new Button("Translate to English");
-        // Corrected: Set the action for the translateToEnglishButton instead of setting it again for translateToMorseButton.
-        translateToEnglishButton.setOnAction(e -> translateToEnglish());
+        // Initialize translate button
+        Button translateButton = new Button("Translate");
+        translateButton.setOnAction(e -> translate());
 
-        // Layout configuration: English text area on the left, Morse code text area on the right.
-        root.setLeft(englishTextArea);
-        root.setRight(morseTextArea);
-        // Place translation buttons at the top and bottom of the UI.
-        root.setTop(translateToEnglishButton);
-        root.setBottom(translateToMorseButton);
+        // Initialize clear button
+        Button clearButton = new Button("Clear");
+        clearButton.setOnAction(e -> clearText());
 
-        // Create the scene with the specified root layout and dimensions.
+        // Arrange components in VBox
+        VBox vBox = new VBox(10);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().addAll(leftTextArea, rightTextArea, switchButton, translateButton, clearButton);
+
+      
         Scene scene = new Scene(root, 600, 400);
-        // Set the title of the primary stage (application window).
-        primaryStage.setTitle("Morse Translator");
-        // Apply the scene to the primary stage and display it.
+        primaryStage.setTitle("Translator");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    private void switchText() {
+        String temp = leftTextArea.getText();
+        leftTextArea.setText(rightTextArea.getText());
+        rightTextArea.setText(temp);
+    }
+
+    private void translate() {
+        String input = leftTextArea.getText().trim();
+        String translation = "";
+
+        // Check if input is Morse code or English
+        if (isMorse(input)) {
+            translation = MorseCodeTranslator.morseToEnglish(input);
+        } else {
+            translation = MorseCodeTranslator.englishToMorse(input);
+        }
+
+        rightTextArea.setText(translation);
+    }
+
+    private boolean isMorse(String text) {
+        return text.matches("[\\-\\.\\s/]+");
+    }
+
+    private void clearText() {
+        leftTextArea.clear();
+        rightTextArea.clear();
+    }
+
     // Method to translate English text to Morse code and display the result.
-    private void translateToMorse() {
-        // Get the English text from the text area.
-        String englishText = englishTextArea.getText();
-        // Translate to Morse code using the MorseCodeTranslator class.
-        String morseText = MorseCodeTranslator.englishToMorse(englishText);
-        // Display the Morse code in the morse text area.
-        morseTextArea.setText(morseText);
-    }
-
-    // Method to translate Morse code to English and display the result.
-    private void translateToEnglish() {
-        // Get the Morse code text from the text area.
-        String morseText = morseTextArea.getText();
-        // Translate to English using the MorseCodeTranslator class.
-        String englishText = MorseCodeTranslator.morseToEnglish(morseText);
-        // Display the English text in the english text area.
-        englishTextArea.setText(englishText);
-    }
-
-    // Main method to launch the application.
     public static void main(String[] args) {
         launch(args);
     }

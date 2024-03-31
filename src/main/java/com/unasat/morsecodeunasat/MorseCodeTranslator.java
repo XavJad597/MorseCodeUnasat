@@ -1,11 +1,16 @@
 package com.unasat.morsecodeunasat;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // Class responsible for translating between English text and Morse code.
 public class MorseCodeTranslator {
 // A static HashMap to hold the mapping between English characters (including numbers and some punctuation) and Morse code.
     private static final HashMap<String, String> englishToMorseLib = new HashMap<>();
+    private static final Logger logger = Logger.getLogger(MorseCodeTranslator.class.getName());
+
 
     static {
         // Static initializer block to populate the englishToMorseLib map with English to Morse code mappings.
@@ -59,12 +64,42 @@ public class MorseCodeTranslator {
 
         // Other mappings...
     }
+
+
+    public static String englishToMorse(String englishText) {
+        StringBuilder morseCode = new StringBuilder();
+        try {
+            for (char c : englishText.toUpperCase().toCharArray()) {
+                if (englishToMorseLib.containsKey(String.valueOf(c))) {
+                    morseCode.append(englishToMorseLib.get(String.valueOf(c))).append(" ");
+                } else if (c == ' ') {
+                    // Handle spaces by adding a slash to separate words in Morse code
+                    morseCode.append("/ ");
+                } else {
+                    // Handle unknown characters or symbols
+                    morseCode.append("? ");
+                }
+            }
+        } catch (NullPointerException e) {
+            // Handle null input
+            System.err.println("Error: Input text is null.");
+            return "";
+        } catch (Exception e) {
+            // Handle other exceptions
+            System.err.println("Error: An unexpected error occurred.");
+            e.printStackTrace();
+            return "";
+        }
+        return morseCode.toString().trim();
+    }
+
     
     // Translates English text to Morse code.
     // Iterates through each character of the input text, converting it to uppercase to match the map keys,
     // and appends the corresponding Morse code to the output string.
     public static String morseToEnglish(String morseText) {
         StringBuilder englishText = new StringBuilder();
+      try{
         String[] morseWords = morseText.split(" / "); // Split the input text into words based on " / " as the word separator
         for (String morseWord : morseWords) {
             String[] morseChars = morseWord.split(" "); // Split each word into individual Morse code sequences
@@ -79,9 +114,21 @@ public class MorseCodeTranslator {
                     // Handle unknown Morse code sequences with a question mark
                     englishText.append("?");
                 }
+              else
             }
             englishText.append(" "); // Add a space to separate words
         }
-        return englishText.toString().trim(); // Return the translated English text, trimming trailing spaces
+
+    } catch (NullPointerException e) {
+        return "Error: Invalid Morse code input.";
+    } catch (IllegalArgumentException e) {
+        logger.log(Level.SEVERE, "Invalid Morse code format. Check separators and characters.", e);
+        return "Error: Invalid Morse code input.";
     }
+
+    return englishText.toString().trim();
 }
+
+}
+
+

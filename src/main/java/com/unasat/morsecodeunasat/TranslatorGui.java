@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class TranslatorGui extends Application {
@@ -16,6 +18,21 @@ public class TranslatorGui extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        // Show introduction before starting the main application
+        Introduction introduction = new Introduction();
+        introduction.setContinueAction(() -> instruction(primaryStage));
+        introduction.showIntroduction(primaryStage);
+    }
+
+    public void instruction(Stage primaryStage){
+        Instructions instructions = new Instructions();
+        instructions.setContinueAction(() -> startTranslatorGui(primaryStage));
+        instructions.showInstructions(primaryStage);
+    }
+
+    private void startTranslatorGui(Stage primaryStage) {
+        // Proceed to the main application
+        BorderPane root = new BorderPane();
         // Initialize text areas
         leftTextArea = new TextArea();
         leftTextArea.setPromptText("Enter text to translate");

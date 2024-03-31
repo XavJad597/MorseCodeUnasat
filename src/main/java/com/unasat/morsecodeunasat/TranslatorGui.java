@@ -11,7 +11,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+// Main class for the GUI of the Morse Code Translator application.
+// Extends Application to use JavaFX for building the user interface.
 public class TranslatorGui extends Application {
+
     private TextArea leftTextArea;
     private TextArea rightTextArea;
     private Button switchButton;
@@ -59,8 +62,8 @@ public class TranslatorGui extends Application {
         vBox.setAlignment(Pos.CENTER);
         vBox.getChildren().addAll(leftTextArea, rightTextArea, switchButton, translateButton, clearButton);
 
-        // Set up scene
-        Scene scene = new Scene(vBox, 400, 300);
+      
+        Scene scene = new Scene(root, 600, 400);
         primaryStage.setTitle("Translator");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -95,6 +98,7 @@ public class TranslatorGui extends Application {
         rightTextArea.clear();
     }
 
+    // Method to translate English text to Morse code and display the result.
     public static void main(String[] args) {
         launch(args);
     }

@@ -1,4 +1,5 @@
 module com.unasat.morsecodeunasat {
+  
         requires javafx.controls;
         requires javafx.fxml;
         requires javafx.web;

@@ -56,6 +56,7 @@ public class Introduction {
                 createText("Cohort: 2022", 14)
         };
 
+
         HBox hbox = new HBox(20);
         hbox.setAlignment(Pos.CENTER);
         for (int i = 0; i < creators.length; i++) {

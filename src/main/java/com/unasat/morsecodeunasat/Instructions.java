@@ -15,7 +15,10 @@ public class Instructions {
 
     private Runnable continueAction;
 
-    public void showInstructions(Stage primaryStage){
+
+    //Displays instructions for using the Morse Translator application.
+    // Creates a stage with instructions and a "Continue" button.
+    public void showInstructions(Stage primaryStage) {
 
         primaryStage.setTitle("Morse Translator");
 
@@ -28,8 +31,8 @@ public class Instructions {
 
         Text[] instruct = {
                 createText("1. Type your english text/MorseCode in the upper field", 14),
-                createText("2.press the translate button to translate the English text/MorseCode",14),
-                createText("3 Press the switch button to switch english text or morse code with eachother",14),
+                createText("2.press the translate button to translate the English text/MorseCode", 14),
+                createText("3 Press the switch button to switch english text or morse code with eachother", 14),
                 createText("Press the 'Clear Text' button to clear the text.", 14)
         };
 
@@ -57,13 +60,17 @@ public class Instructions {
         primaryStage.show();
     }
 
+
+    //this method let's you continue to the next window with a button.
     public void setContinueAction(Runnable continueAction) {
         this.continueAction = continueAction;
     }
 
+
+    //This method creates and returns a JavaFX Text object with the specified text content and font size.
     private Text createText(String text, double size) {
         Text newText = new Text(text);
         newText.setFont(Font.font(size));
         return newText;
     }
-    }
+}

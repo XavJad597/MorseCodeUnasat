@@ -15,7 +15,7 @@ import com.unasat.morsecodeunasat.MorseCodeTranslator;
 // Main class for the GUI of the Morse Code Translator application.
 // Extends Application to use JavaFX for building the user interface.
 public class TranslatorGui extends Application {
-Instructions instructions = new Instructions();
+    Instructions instructions = new Instructions();
     private TextArea leftTextArea;
     private TextArea rightTextArea;
     private Button switchButton;
@@ -25,15 +25,14 @@ Instructions instructions = new Instructions();
     public void start(Stage primaryStage) {
         // Show introduction before starting the main application
         Introduction introduction = new Introduction();
-        introduction.setContinueAction(() -> instruction(primaryStage));
+        introduction.setContinueAction(() -> startTranslatorGui(primaryStage));
         introduction.showIntroduction(primaryStage);
     }
 
-    public void instruction(Stage primaryStage) {
-        Instructions instructions = new Instructions();
+   /* public void instruction(Stage primaryStage) {
         instructions.setContinueAction(() -> startTranslatorGui(primaryStage));
         instructions.showInstructions(primaryStage);
-    }
+    }*/
 
     private void startTranslatorGui(Stage primaryStage) {
         // Proceed to the main application
@@ -61,7 +60,7 @@ Instructions instructions = new Instructions();
 
         //help button
         Button helpButton = new Button ("help");
-        helpButton.setOnAction(e-> instructions.showInstructions(primaryStage));
+        helpButton.setOnAction(e-> instructions.showInstructions(primaryStage, this));
 
         // Arrange components in VBox
         VBox vBox = new VBox(10);
@@ -73,6 +72,10 @@ Instructions instructions = new Instructions();
         primaryStage.setTitle("Translator");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public void returnToTranslator(Stage primaryStage) {
+        startTranslatorGui(primaryStage); // Call the method to start the translator GUI again
     }
 
     private void switchText() {
@@ -126,7 +129,6 @@ Instructions instructions = new Instructions();
 
     // Method to translate English text to Morse code and display the result.
     public static void main(String[] args) {
-
         launch(args);
     }
 }

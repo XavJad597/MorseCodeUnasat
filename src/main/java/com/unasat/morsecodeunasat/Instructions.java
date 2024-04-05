@@ -15,10 +15,9 @@ public class Instructions {
 
     private Runnable continueAction;
 
-
     //Displays instructions for using the Morse Translator application.
     // Creates a stage with instructions and a "Continue" button.
-    public void showInstructions(Stage primaryStage) {
+    public void showInstructions(Stage primaryStage, TranslatorGui translatorGui) {
 
         primaryStage.setTitle("Morse Translator");
 
@@ -46,9 +45,9 @@ public class Instructions {
 
         root.getChildren().addAll(title, instructionsText, vbox);
 
-        Button continueButton = new Button("Continue");
+        Button continueButton = new Button("Back");
         continueButton.setOnAction(e -> {
-            primaryStage.close();
+            translatorGui.returnToTranslator(primaryStage);
             if (continueAction != null) {
                 continueAction.run();
             }

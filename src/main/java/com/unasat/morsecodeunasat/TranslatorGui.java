@@ -65,7 +65,7 @@ public class TranslatorGui extends Application {
         // Arrange components in VBox
         VBox vBox = new VBox(10);
         vBox.setAlignment(Pos.CENTER);
-        vBox.getChildren().addAll(leftTextArea, rightTextArea, switchButton, translateButton, clearButton);
+        vBox.getChildren().addAll(leftTextArea, rightTextArea, switchButton, translateButton, clearButton,helpButton);
 
 
         Scene scene = new Scene(vBox, 400, 300);

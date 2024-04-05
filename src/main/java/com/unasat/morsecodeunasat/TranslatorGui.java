@@ -15,7 +15,7 @@ import com.unasat.morsecodeunasat.MorseCodeTranslator;
 // Main class for the GUI of the Morse Code Translator application.
 // Extends Application to use JavaFX for building the user interface.
 public class TranslatorGui extends Application {
-
+Instructions instructions = new Instructions();
     private TextArea leftTextArea;
     private TextArea rightTextArea;
     private Button switchButton;
@@ -61,7 +61,7 @@ public class TranslatorGui extends Application {
 
         //help button
         Button helpButton = new Button ("help");
-        helpButton.setOnAction(e-> showInstructions())
+        helpButton.setOnAction(e-> instructions.showInstructions(primaryStage));
 
         // Arrange components in VBox
         VBox vBox = new VBox(10);
@@ -126,6 +126,7 @@ public class TranslatorGui extends Application {
 
     // Method to translate English text to Morse code and display the result.
     public static void main(String[] args) {
+
         launch(args);
     }
 }
